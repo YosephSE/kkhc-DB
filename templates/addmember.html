@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KKHC forms</title>
+  </head>
+  <body>
+    {% block webcontent %}
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+    {% endif %}
+{% endwith %}
+    <header>
+      <h1>KKHC Local Church</h1>
+      <h2>Permanet Members Survey Collection Form</h2>
+      <form action="/addmember" method="post" enctype="multipart/form-data">
+        <div class="main_info">
+          <div class="info1">
+            <!-- <label for="photo">Photo:</label>
+            <input type="file" name="photo" id="photo" /> <br> <br> -->
+            <label for="title">ማዕረግ</label>
+            <select name="title" id="title">
+              <option value="አቶ">አቶ</option>
+              <option value="ወይዝሮ">ወይዝሮ</option>
+              <option value="ወይዘሪት">ወይዘሪት</option>
+              <option value="ወንድም">ወንድም</option>
+              <option value="እህት">እህት</option>
+              <option value="ተማሪ">ተማሪ</option>
+              <option value="መጋቢ">መጋቢ</option>
+              <option value="ዶክተር">ዶክተር</option>
+            </select>
+            <label for="f_name">ስም *</label>
+            <input
+              type="text"
+              placeholder="ስም"
+              id="f_name"
+              name="f_name"
+              required=""
+            />
+            <label for="m_name">የአባት ስም *</label>
+            <input
+              type="text"
+              placeholder="የአባት ስም"
+              id="m_name"
+              name="m_name"
+              required=""
+            />
+            <label for="l_name">የአያት ስም *</label>
+            <input
+              type="text"
+              placeholder="የአያት ስም"
+              id="l_name"
+              name="l_name"
+              required=""
+            /> <br> <br><br>
+            <label for="gender">Gender</label>
+            <select name="gender" id="gender">
+              <option value="ወ">ወንድ</option>
+              <option value="ሴ">ሴት</option>
+            </select>
+            <label for="dob">የልደት ቀን *</label>
+            <input type="date" name="dob" id="dob" required="" />
+            <label for="phone">ስልክ ቁጥር *</label>
+            <select name="ccode" id="ccode">
+              <option value="+251">+251</option>
+            </select>
+            <input type="tel" name="phone" id="phone" required="" />
+          </div>
+          
+          <div class="info3">
+            <p>የመኖርያ አድራሻ</p>
+            <label for="subcity">ክፍለ-ከተማ *</label>
+            <input
+              type="text"
+              placeholder="የካ"
+              name="subcity"
+              id="subcity"
+              required=""
+            />
+            <label for="woreda">ወረዳ/ቀበሌ *</label>
+            <input type="number" name="woreda" id="woreda" required="" />
+            <label for="h_no">የቤት ቁጥር</label>
+            <input type="text" name="h_no" id="h_no" />
+            <label for="other_name">ልዩ መጠርያ *</label>
+            <input type="text" name="other_name" id="other_name" required="" />
+          </div>
+        </div><br><br>
+        <button type="submit">Submit</button>
+      </form>
+    </header>
+    {% endblock %}
+  </body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Members list</title>
+    <style>
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        border: 1px solid black;
+      }
+
+      th,
+      td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: center;
+      }
+
+      th {
+        background-color: #f2f2f2;
+      }
+
+      .photo-cell {
+        max-width: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    {% block webcontent %}
+    <h2>Members List</h2>
+    <table>
+      <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Name</th>
+        <th>Gender</th>
+        <th>Age</th>
+        <th>Sub-city</th>
+        <th>Woreda</th>
+        <th>House Number</th>
+        <th>Direction</th>
+        <th>Phone Number</th>
+      </tr>
+      
+      {% for member in members %}
+      <tr>
+        <td>{{member[0]}}</td>
+        <td>{{member[1]}}</td>
+        <td>{{member[2]}}</td>
+        
+        <td>{{member[3]}}</td>
+        <td>
+          {% set dob = member[4] %}
+          
+          {% set age = today.year - dob.year - ((today.month, today.day) < (dob.month, dob.day)) %}
+          {{ age }}
+        </td>
+        <td>{{member[5]}}</td>
+        <td>{{member[6]}}</td>
+        <td>{{member[7]}}</td>
+        <td>{{member[8]}}</td>
+        <td>{{member[9]}}</td>
+      </tr>
+      {% endfor %}
+    </table>
+    {% endblock %}
+  </body>
+</html>
