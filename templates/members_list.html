@@ -45,16 +45,11 @@
       {% for member in members %}
       <tr>
         <td>{{member[0]}}</td>
-        <td>{{member[1]}}</td>
+        <td></td>
         <td>{{member[2]}}</td>
         
         <td>{{member[3]}}</td>
-        <td>
-          {% set dob = member[4] %}
-          
-          {% set age = today.year - dob.year - ((today.month, today.day) < (dob.month, dob.day)) %}
-          {{ age }}
-        </td>
+        <td></td>
         <td>{{member[5]}}</td>
         <td>{{member[6]}}</td>
         <td>{{member[7]}}</td>
