@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Forms</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+  <body>
+    <form
+      action="/addmembernew"
+      id="upload-form"
+      method="post"
+      enctype="multipart/form-data"
+    >
+      <!-- you need to add to some things here to send the file to the data base -->
+      <!-- section 1 (basics)-->
+      <div class="basics">
+        <!-- picture input -->
+        <div class="file_upload">
+          <label
+            >ፎቶግራፍ *
+            <input
+              type="file"
+              name="fileToUpload"
+              id="fileToUpload"
+              accept=".jpg, .jpeg, .png, .pdf"
+              required
+            />
+          </label>
+          <!-- if file is not compatable as stated(.jpg, .jpeg, .png, .pdf) and exceed 10MB js will throw the error msg here-->
+          <p id="error-message"></p>
+        </div>
+        <div class="identity">
+          <!-- title -->
+          <label
+            >ማዕረግ
+            <select name="title" id="title">
+              <option value="ato">አቶ</option>
+              <option value="woizero">ወይዝሮ</option>
+              <option value="woizerit">ወይዘሪት</option>
+              <option value="brother">ወንድም</option>
+              <option value="sister">እህት</option>
+              <option value="student">ተማሪ</option>
+              <option value="pastor">መጋቢ</option>
+              <option value="doctor">ዶክተር</option>
+            </select>
+          </label>
+          <!-- f name 100 char-->
+          <label
+            >ስም *
+            <input
+              type="text"
+              placeholder="ስም"
+              id="f_name"
+              name="f_name"
+              maxlength="100"
+              required
+            />
+          </label>
+          <!-- m name 100char-->
+          <label
+            >የአባት ስም *
+            <input
+              type="text"
+              placeholder="የአባት ስም"
+              id="m_name"
+              name="m_name"
+              maxlength="100"
+              required
+            />
+          </label>
+          <!-- l name 100char-->
+          <label
+            >የአያት ስም *
+            <input
+              type="text"
+              placeholder="የአያት ስም"
+              id="l_name"
+              name="l_name"
+              maxlength="100"
+              required
+            />
+          </label>
+          <!-- sex 1char radio-->
+          <span class="handicap">ጾታ</span>
+          <label
+            >ወንድ
+            <input type="radio" name="sex" id="male" value="M" checked />
+          </label>
+          <label
+            >ሴት
+            <input type="radio" name="sex" id="female" value="F" />
+          </label>
+          <!-- birth date: date  -->
+          <label
+            >የልደት ቀን *
+            <input type="date" name="dob" id="dob" required />
+          </label>
+          <!-- health stats -->
+          <span class="handicap">የአካል ጉዳት</span>
+          <label
+            >አዎ
+            <input type="radio" name="handicap" id="yes" value="true" />
+          </label>
+          <label
+            >አይ
+            <input type="radio" name="handicap" id="no" value="false" checked />
+          </label>
+          <div id="handicapDescription" class="handicap_desc">
+            <label for="description">የአካል ጉዳት አይነት:</label>
+            <!-- handicap type(discription) 250char-->
+            <input
+              type="text"
+              id="description"
+              name="description"
+              maxlength="250"
+            />
+          </div>
+          <!-- handicap info: bool -->
+        </div>
+      </div>
+
+      <!-- section 2 (adress)-->
+      <div class="address">
+        <!-- subcity -->
+        <label
+          >ክፍለ-ከተማ *
+          <select name="subcity" id="subcity">
+            <option value="lemikura">ለሚ ኩራ</option>
+            <option value="yeka">የካ</option>
+            <option value="bole">ቦሌ</option>
+            <option value="akaki-kaliti">አቃቂ ቃሊቲ</option>
+            <option value="kolfe-keranio">ኮልፌ ቀራኒዮ</option>
+            <option value="lideta">ልደታ</option>
+            <option value="gulele">ጉለሌ</option>
+            <option value="addis-ketema">አዲስ ከተማ</option>
+            <option value="kirkos">ቂረቆስ</option>
+            <option value="arada">አራዳ</option>
+            <option value="nifas-silk-lafto">ንፋስ ስልክ ላፍቶ</option>
+          </select>
+        </label>
+        <!-- district(woreda) num-->
+        <label
+          >ወረዳ *
+          <select name="district" id="district">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+          </select>
+        </label>
+        <!-- house number num-->
+        <label
+          >የቤት ቁጥር
+          <input
+            type="text"
+            name="house_no"
+            id="house_no"
+            placeholder="የቤት ቁጥር"
+            maxlength="10"
+          />
+        </label>
+        <!-- neighborhood name 250char-->
+        <label
+          >ልዩ መጠርያ
+          <input type="text" name="other_name" id="other_name" required />
+        </label>
+        <!-- homephone num-->
+        <span class="phone">
+          <label
+            >ስልክ ቁጥር*
+            <select name="countryCode" id="countryCode">
+              <option value="eth">+251</option>
+            </select>
+            <label
+              >ስልክ:
+              <input
+                type="tel"
+                id="phoneNumber"
+                name="phoneNumber"
+                maxlength="9"
+                required
+              /><br />
+            </label>
+            <p id="phno-err-msg"></p>
+          </label>
+          <!-- personal phone num-->
+          <label
+            >ስልክ ቁጥር
+            <select name="countryCode" id="countryCode">
+              <option value="eth">+251</option>
+            </select>
+            <label
+              >ስልክ:
+              <input
+                type="tel"
+                id="phoneNumber"
+                name="phoneNumber"
+                maxlength="9"
+              />
+            </label>
+            <p id="phno-err-msg"></p>
+          </label>
+        </span>
+        <!-- email email-->
+        <label
+          >ኢ-ሜይል
+          <input type="email" name="email" id="email" />
+        </label>
+      </div>
+      <!-- section 3 (church status)-->
+      <div class="church_status">
+        <div class="baptizim-info">
+          <!-- baptism date date-->
+          <label
+            >የጥምቀት ቀን
+            <input type="date" name="bap_date" required />
+          </label>
+          <!-- Baptized where 254char-->
+          <label
+            >የጥምቀት ቦታ
+            <input type="text" name="bap_where" maxlength="150" required />
+          </label>
+          <!-- date of membership date-->
+          <label
+            >አባልነት ቀን
+            <input type="date" name="mem_date" required />
+          </label>
+        </div>
+        <!-- church relationship -->
+        <div class="church_rship">
+          <span class="service">በቤተ ክርስትያን አገልግሎት ውስጥ አሉ?</span>
+          <label
+            >አዎ
+            <input type="radio" name="service" value="true" id="yesService" />
+          </label>
+          <label
+            >አይ
+            <input
+              type="radio"
+              name="service"
+              value="false"
+              id="noService"
+              checked
+            />
+          </label>
+          <!-- services bool-->
+          <div class="service_list" id="serviceId">
+            <!-- choice list -->
+            <!-- each one have to have a radio to show whether they are acitve or not -->
+            <div class="singers">
+              <label
+                >ዝማሬ
+                <input type="checkbox" name="singer" class="servWhere1" />
+                <span class="serv_where" id="servWhereId1">
+                  <label
+                    >እያገለገሉ ነው
+                    <input type="radio" name="status1" checked />
+                  </label>
+                  <label
+                    >እያገለገሉ አይደለም
+                    <input type="radio" name="status1" />
+                  </label>
+                </span>
+              </label>
+            </div>
+            <div class="children">
+              <label
+                >የልጆች አገልግሎት
+                <input type="checkbox" name="children" class="servWhere2" />
+                <span class="serv_where" id="servWhereId2">
+                  <label
+                    >እያገለገሉ ነው
+                    <input type="radio" name="status2" checked />
+                  </label>
+                  <label
+                    >እያገለገሉ አይደለም
+                    <input type="radio" name="status2" />
+                  </label>
+                </span>
+              </label>
+            </div>
+            <div class="prayer">
+              <label
+                >የጸሎት አገልግሎት
+                <input type="checkbox" name="prayer" class="servWhere3" />
+                <span class="serv_where" id="servWhereId3">
+                  <label
+                    >እያገለገሉ ነው
+                    <input type="radio" name="status3" checked />
+                  </label>
+                  <label
+                    >እያገለገሉ አይደለም
+                    <input type="radio" name="status3" />
+                  </label>
+                </span>
+              </label>
+            </div>
+            <div class="youth">
+              <label
+                >የወጣቶች አገልግሎት
+                <input type="checkbox" name="youth" class="servWhere4" />
+                <span class="serv_where" id="servWhereId4">
+                  <label
+                    >እያገለገሉ ነው
+                    <input type="radio" name="status4" checked />
+                  </label>
+                  <label
+                    >እያገለገሉ አይደለም
+                    <input type="radio" name="status4" />
+                  </label>
+                </span>
+              </label>
+            </div>
+            <div class="sisters">
+              <label
+                >የእህቶች አገልግሎት
+                <input type="checkbox" name="children" class="servWhere5" />
+                <span class="serv_where" id="servWhereId5">
+                  <label
+                    >እያገለገሉ ነው
+                    <input type="radio" name="status5" checked />
+                  </label>
+                  <label
+                    >እያገለገሉ አይደለም
+                    <input type="radio" name="status5" />
+                  </label>
+                </span>
+              </label>
+            </div>
+            <div class="outreach">
+              <label
+                >የወንጌል ስርጭት አገልግሎት
+                <input type="checkbox" name="outreach" class="servWhere6" />
+                <span class="serv_where" id="servWhereId6">
+                  <label
+                    >እያገለገሉ ነው
+                    <input type="radio" name="status6" checked />
+                  </label>
+                  <label
+                    >እያገለገሉ አይደለም
+                    <input type="radio" name="status6" />
+                  </label>
+                </span>
+              </label>
+            </div>
+            <div class="deacon">
+              <label
+                >የዲያቆን አገልግሎት
+                <input type="checkbox" name="deacon" class="servWhere7" />
+                <span class="serv_where" id="servWhereId7">
+                  <label
+                    >እያገለገሉ ነው
+                    <input type="radio" name="status7" checked />
+                  </label>
+                  <label
+                    >እያገለገሉ አይደለም
+                    <input type="radio" name="status7" />
+                  </label>
+                </span>
+              </label>
+            </div>
+            <div class="charity">
+              <label
+                >የፍቅርና ርህራሄ አገልግሎት
+                <input type="checkbox" name="charity" class="servWhere8" />
+                <span class="serv_where" id="servWhereId8">
+                  <label
+                    >እያገለገሉ ነው
+                    <input type="radio" name="status8" checked />
+                  </label>
+                  <label
+                    >እያገለገሉ አይደለም
+                    <input type="radio" name="status8" />
+                  </label>
+                </span>
+              </label>
+            </div>
+            <div class="eddir">
+              <label
+                >የእድር አገልግሎት
+                <input type="checkbox" name="eddir" class="servWhere9" />
+                <span class="serv_where" id="servWhereId9">
+                  <label
+                    >እያገለገሉ ነው
+                    <input type="radio" name="status9" checked />
+                  </label>
+                  <label
+                    >እያገለገሉ አይደለም
+                    <input type="radio" name="status9" />
+                  </label>
+                </span>
+              </label>
+            </div>
+            <div class="elder">
+              <label
+                >የሽምግልና አገልግሎት
+                <input type="checkbox" name="elder" class="servWhere10" />
+                <span class="serv_where" id="servWhereId10">
+                  <label
+                    >እያገለገሉ ነው
+                    <input type="radio" name="status10" checked />
+                  </label>
+                  <label
+                    >እያገለገሉ አይደለም
+                    <input type="radio" name="status10" />
+                  </label>
+                </span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- section 4 (education status)-->
+      <div class="edu_stats" id="inputContainer">
+        <div class="status_check">
+          <label
+            >ትምህርት ተምረዋል
+            <input type="radio" name="educheck" id="yesEdu" value="true" />
+          </label>
+          <label
+            >ትምህርት አልተማሩም
+            <input type="radio" name="educheck" id="noEdu" value="false" />
+          </label>
+        </div>
+        <div class="learned" id="learned">
+          <!-- add button for education field -->
+          <div class="addmorebtn">
+            <!-- <button type="button" id="addMoreBtn">የትምህርት ደረጃ ይጨምሩ</button> -->
+          </div>
+          <div class="repeatable">
+            <!-- level option like high school, bachlor, masters,  phd-->
+            <label
+              >የትምህርት ደረጃ
+              <select name="edu_status_list" id="eduStatusList">
+                <option value="elementary">የመጀመርያ ደረጃ ትምህርት</option>
+                <option value="highschool">ሁለተኛ ደረጃ ትምህርት</option>
+                <option value="diploma">ዲፕሎማ</option>
+                <option value="certeficate">ሰርተፍኬት</option>
+                <option value="degree">ዲግሪ</option>
+                <option value="masters">ማስተርስ</option>
+                <option value="phd">ዶክትሬት</option>
+              </select>
+            </label>
+            <label
+              >የትምህርት ዘርፍ(የምረቃ ፊልድ)*
+              <!-- education field with add button 200char-->
+              <input
+                type="text"
+                name="sub_of_study"
+                id="subOfStudy"
+                maxlength="200"
+              />
+            </label>
+          </div>
+        </div>
+        <!-- work bool-->
+        <div class="workStatus" id="workStatus">
+          <!-- if no -->
+          <span class="workqest"
+            >ስራ አላቸው?
+            <label>
+              አዎ
+              <input type="radio" name="work_stats" value="true" id="yesWork" />
+            </label>
+            <label>
+              አይ
+              <input type="radio" name="work_stats" value="false" id="noWork" />
+            </label>
+            <!-- housewife -->
+            <label>
+              የቤት እመቤት
+              <input type="radio" name="work_stats" value="housewife" />
+            </label>
+            <!-- student -->
+            <label>
+              ተማሪ <input type="radio" name="work_stats" value="student" />
+            </label>
+            <label>
+              <!-- retiered -->
+              ጡረተኛ <input type="radio" name="work_stats" value="retired" />
+            </label>
+          </span>
+          <!-- if yes -->
+          <div class="iwork" id="iWork">
+            <!-- type 254char-->
+            <label>
+              የስራ አይነት
+              <select name="work_type">
+                <option value="private">የግል</option>
+                <option value="govt">የመንግስት</option>
+                <option value="no_gov">መንግስታዊ ያልሆነ</option>
+                <option value="church">የቤ/ክ አገልጋይ</option>
+                <option value="ngo">የግል ድርጅት</option>
+                <option value="housemade">የቤት ሰራተኛ</option>
+              </select>
+            </label>
+            <!-- place 254char-->
+            <label>
+              የስራ ቦታ
+              <input
+                type="text"
+                name="work_place"
+                id="workPlace"
+                maxlength="254"
+              />
+            </label>
+            <!-- responsibility 254char-->
+            <label
+              >የስራ ሃላፊነት
+              <input
+                type="text"
+                name="responsibility"
+                id="responsiblity"
+                maxlength="254"
+              />
+            </label>
+            <!-- profession 254char-->
+            <label>
+              የሚጠሩበት ፕሮፌሽን
+              <input
+                type="text"
+                name="profession"
+                id="profession"
+                maxlength="254"
+              />
+            </label>
+            <!-- talent 254char-->
+            <label>
+              ቤ/ክ የምትጠቀምበት ችሎታ
+              <input type="text" name="talent" id="talent" maxlength="254" />
+            </label>
+          </div>
+        </div>
+      </div>
+      <!-- section 5 (maritial status)-->
+      <div class="maritial_status">
+        <!-- maritial status bool-->
+        <span class="maritialquest">
+          የጋብቻ ሁኔታ *
+          <label>
+            ያገባ
+            <input type="radio" name="mstats" value="true" />
+          </label>
+          <label>
+            ያላገባ
+            <input type="radio" name="mstats" value="false" checked />
+          </label>
+          <label>
+            መበልት
+            <input type="radio" name="mstats" value="widowed" />
+          </label>
+        </span>
+        <div class="maritial_bool" id="maritalStatus">
+          <!-- if married -->
+          <div class="ifmarried" id="married">
+            <span>የባለቤት ሙሉ መረጃ</span>
+            <!-- spause title dropdown-->
+            <label>
+              ማዕረግ
+              <select name="s-title" id="sTitle">
+                <option value="ato">አቶ</option>
+                <option value="woizero">ወይዝሮ</option>
+                <option value="woizerit">ወይዘሪት</option>
+                <option value="brother">ወንድም</option>
+                <option value="sister">እህት</option>
+                <option value="student">ተማሪ</option>
+                <option value="pastor">መጋቢ</option>
+                <option value="doctor">ዶክተር</option>
+              </select>
+            </label>
+            <!-- spause f name 100char-->
+            <label
+              >ስም *
+              <input type="text" id="sFName" name="sFName" maxlength="100" />
+            </label>
+            <!-- spause m name 100char-->
+            <label
+              >የአባት ስም *
+              <input type="text" id="sMName" name="sMName" maxlength="100" />
+            </label>
+            <!-- spause l name 100char-->
+            <label
+              >የአያት ስም *
+              <input type="text" id="sLName" name="sLName" maxlength="100" />
+            </label>
+            <label
+              >የጋብቻ ቀን *
+              <input type="date" name="dateOfWedding" id="dateOfWedding" />
+            </label>
+            <!-- spause here bool-->
+            <div class="spause_here" id="spauseHere">
+              <!-- if they are in any kind of church -->
+              <span>ባለቤት በወንጌላውያን ቤ/ክ ታቅፈዋል?</span>
+              <label>
+                አዎ <input type="radio" name="shere" value="true" />
+              </label>
+              <label>
+                አይ <input type="radio" name="shere" value="false" />
+              </label>
+              <div class="ifhere" id="ifHere">
+                <!-- if they are in this church -->
+                <span>የዚህች ቤ/ክ አባል ናችው?</span>
+                <label>
+                  አዎ <input type="radio" name="here" value="true" />
+                </label>
+                <label>
+                  አይ <input type="radio" name="here" value="false" />
+                </label>
+                <!-- if they are not in this church -->
+                <div class="no_ifhere" id="noIfHere">
+                  <!-- spause where church 100char-->
+                  <label>
+                    የዚህች ቤ/ክ አባል ካልሆኑ የት ናቸው?
+                    <input type="text" id="whereAreThey" maxlength="100" />
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- section 6 (neighbourhood union)-->
+      <div class="neighbourhood" id="neighbourhood">
+        <span>የአካባቢ ህብረት ታቅፈዋል? </span>
+        <label>
+          አዎ <input type="radio" name="neighStatus" value="true" />
+        </label>
+        <label>
+          አይ <input type="radio" name="neighStatus" value="false" />
+        </label>
+        <div class="neighbourhood_info" id="neighbourhoodInfo">
+          <label>
+            በአካባቢ ህብረት ከታቅፉ የህብረቱ መጥሪያ<input type="text" id="neighName" />
+          </label>
+          <label> የባለቤቱ ስም<input type="text" id="neighOwner" /> </label>
+          <label> የአስጥኚ ስም<input type="text" id="neighTutor" /> </label>
+          <span>አገልግሎት ይሰጣል? </span>
+          <label
+            >አዎ
+            <input type="radio" name="neighActive" value="false" />
+          </label>
+          <label
+            >አይ
+            <input type="radio" name="neighActive" value="false" />
+          </label>
+        </div>
+        <div class="why_not" id="whyNotServ">
+          <label>
+            ያልታቀፉበት ምክንይት<input type="text" id="whyNotServ" maxlength="254" />
+          </label>
+        </div>
+      </div>
+      <!-- union name 100char-->
+      <!-- active bool-->
+
+      <button type="submit">Submit</button>
+    </form>
+    <script src="{{ url_for('static', filename='js/validator.js') }}"></script>
+  </body>
+</html>

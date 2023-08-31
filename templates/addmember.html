@@ -6,23 +6,15 @@
     <title>KKHC forms</title>
   </head>
   <body>
-    {% block webcontent %}
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-        
-            {% for message in messages %}
-                <p>{{ message }}</p>
-            {% endfor %}
-    {% endif %}
-{% endwith %}
     <header>
       <h1>KKHC Local Church</h1>
       <h2>Permanet Members Survey Collection Form</h2>
       <form action="/addmember" method="post" enctype="multipart/form-data">
         <div class="main_info">
           <div class="info1">
-            <!-- <label for="photo">Photo:</label>
-            <input type="file" name="photo" id="photo" /> <br> <br> -->
+            <label for="photo">Photo</label>
+            <input type="file" name="file" id="file"> <br> <br>
+            
             <label for="title">ማዕረግ</label>
             <select name="title" id="title">
               <option value="አቶ">አቶ</option>
@@ -95,6 +87,6 @@
         <button type="submit">Submit</button>
       </form>
     </header>
-    {% endblock %}
+    
   </body>
 </html>
