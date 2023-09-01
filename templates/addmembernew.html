@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Forms</title>
-    <link
+    <!-- <link
       rel="stylesheet"
       href="{{ url_for('static', filename='css/style.css') }}"
-    />
+    /> -->
   </head>
   <body>
     <form
@@ -16,22 +16,18 @@
       method="post"
       enctype="multipart/form-data"
     >
-      <!-- you need to add to some things here to send the file to the data base -->
-      <!-- section 1 (basics)-->
       <div class="basics">
-        <!-- picture input -->
         <div class="file_upload">
           <label
             >ፎቶግራፍ *
             <input
               type="file"
-              name="fileToUpload"
+              name="profile"
               id="fileToUpload"
-              accept=".jpg, .jpeg, .png, .pdf"
+              accept="image/*"
             />
           </label>
-          <!-- if file is not compatable as stated(.jpg, .jpeg, .png, .pdf) and exceed 10MB js will throw the error msg here-->
-          <p id="error-message"></p>
+          
         </div>
         <div class="identity">
           <!-- title -->
@@ -239,17 +235,9 @@
         <div class="church_rship">
           <span class="service">በቤተ ክርስትያን አገልግሎት ውስጥ አሉ?</span>
           <label>አዎ</label>
-          <input type="radio" name="service" value="1" id="yesService" />
-          
+          <input type="radio" name="service" value="1" id="yesService"/>
           <label>አይ</label>
-            <input
-              type="radio"
-              name="service"
-              value="0"
-              id="noService"
-              checked
-            />
-          
+          <input type="radio" name="service" value="0" id="noService"/>
           <!-- services bool-->
           <div class="service_list" id="serviceId">
             <!-- choice list -->
@@ -257,7 +245,7 @@
             <div class="singers">
               <label
                 >ዝማሬ
-                <input type="checkbox" name="singer" class="servWhere1" />
+                <input type="checkbox" name="singer" value="1" class="servWhere1" />
                 <span class="serv_where" id="servWhereId1">
                   <label
                     >እያገለገሉ ነው
@@ -273,7 +261,7 @@
             <div class="children">
               <label
                 >የልጆች አገልግሎት
-                <input type="checkbox" name="children" class="servWhere2" />
+                <input type="checkbox" name="children" value="2" class="servWhere2" />
                 <span class="serv_where" id="servWhereId2">
                   <label
                     >እያገለገሉ ነው
@@ -289,7 +277,7 @@
             <div class="prayer">
               <label
                 >የጸሎት አገልግሎት
-                <input type="checkbox" name="prayer" class="servWhere3" />
+                <input type="checkbox" name="prayer" value="3" class="servWhere3" />
                 <span class="serv_where" id="servWhereId3">
                   <label
                     >እያገለገሉ ነው
@@ -305,7 +293,7 @@
             <div class="youth">
               <label
                 >የወጣቶች አገልግሎት
-                <input type="checkbox" name="youth" class="servWhere4" />
+                <input type="checkbox" name="youth" value="4" class="servWhere4" />
                 <span class="serv_where" id="servWhereId4">
                   <label
                     >እያገለገሉ ነው
@@ -321,7 +309,7 @@
             <div class="sisters">
               <label
                 >የእህቶች አገልግሎት
-                <input type="checkbox" name="children" class="servWhere5" />
+                <input type="checkbox" name="girls" value="5" class="servWhere5" />
                 <span class="serv_where" id="servWhereId5">
                   <label
                     >እያገለገሉ ነው
@@ -337,7 +325,7 @@
             <div class="outreach">
               <label
                 >የወንጌል ስርጭት አገልግሎት
-                <input type="checkbox" name="outreach" class="servWhere6" />
+                <input type="checkbox" name="outreach" value="6" class="servWhere6" />
                 <span class="serv_where" id="servWhereId6">
                   <label
                     >እያገለገሉ ነው
@@ -353,7 +341,7 @@
             <div class="deacon">
               <label
                 >የዲያቆን አገልግሎት
-                <input type="checkbox" name="deacon" class="servWhere7" />
+                <input type="checkbox" name="deacon" value="8" class="servWhere7" />
                 <span class="serv_where" id="servWhereId7">
                   <label
                     >እያገለገሉ ነው
@@ -369,7 +357,7 @@
             <div class="charity">
               <label
                 >የፍቅርና ርህራሄ አገልግሎት
-                <input type="checkbox" name="charity" class="servWhere8" />
+                <input type="checkbox" name="charity" value="9" class="servWhere8" />
                 <span class="serv_where" id="servWhereId8">
                   <label
                     >እያገለገሉ ነው
@@ -385,7 +373,7 @@
             <div class="eddir">
               <label
                 >የእድር አገልግሎት
-                <input type="checkbox" name="eddir" class="servWhere9" />
+                <input type="checkbox" name="eddir" value="10" class="servWhere9" />
                 <span class="serv_where" id="servWhereId9">
                   <label
                     >እያገለገሉ ነው
@@ -401,7 +389,7 @@
             <div class="elder">
               <label
                 >የሽምግልና አገልግሎት
-                <input type="checkbox" name="elder" class="servWhere10" />
+                <input type="checkbox" name="elder" value="11" class="servWhere10" />
                 <span class="serv_where" id="servWhereId10">
                   <label
                     >እያገለገሉ ነው

@@ -1,7 +1,7 @@
 from flask import Flask, request, render_template, redirect, url_for, session, flash
 from flask_mysqldb import MySQL
 import os
-from app.validator import addmemberval
+# from app.validator import addmemberval
 # from passlib.hash import pbkdf2_sha256
 from datetime import datetime
 
@@ -17,6 +17,11 @@ app.config['MYSQL_DB'] = 'kkhc'
 
 # Initialize the Connection
 mysql = MySQL(app)
+
+# File uploading directory
+
+UPLOAD_FOLDER = 'attachments'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # Auth
 
@@ -107,7 +112,9 @@ def addmember():
 def addmembernew():
     if auth():        
         if request.method == "POST":
-            try:
+            # try:
+                if 'profile' in request.files:
+                    profile = request.files['profile']
                 title = request.form["title"]
                 f_name = request.form["f_name"]
                 m_name = request.form["m_name"]
@@ -126,30 +133,51 @@ def addmembernew():
                 bap_date = request.form["bap_date"]
                 bap_where = request.form["bap_where"]
                 mem_date = request.form["mem_date"]
-            except KeyError as e:
-                return f"Missing or incorrect form field: {e}"
-            except Exception as e:
-                return f"An error occurred: {e}"
+                service = request.form["service"]
+                # churchrelation = request.form["churchrelation"]
+                if service == "1":
+                    singer = request.form["singer"]
+                    children = request.form["children"]
+                    prayer = request.form["prayer"]
+                    # youth = request.form["youth"]
+                    girls = request.form["girls"]
+                    outreach = request.form["outreach"]
+                    deacon = request.form["deacon"]
+                    charity = request.form["charity"]
+                    eddir = request.form["eddir"]
+                    # elder = request.form["elder"]
+                    print(singer, children, prayer, girls, outreach, deacon, charity, eddir)
+            # except KeyError as e:
+            #     return f"Missing or incorrect form field: {e}"
+            # except Exception as e:
+            #     return f"An error occurred: {e}"
+            
 
-            cur = mysql.connection.cursor()
-            cur.execute("INSERT INTO memberinfo (title, firstname, middlename, lastname, sex, birthdate, subcity, district, homeno, neighborhood, Homephone, personalphone, email, handicap, handicaptype) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (title, f_name, m_name, l_name, sex, dob, subcity, district, house_no, other_name, homephone, phone, email, handicap, description))
-            mysql.connection.commit()
-            cur.execute("SELECT id FROM memberinfo WHERE firstname = %s AND middlename = %s AND lastname = %s ORDER BY id DESC", (f_name, m_name, l_name))
-            userid = cur.fetchall()
-            userid = userid[0][0]
-            cur.close()
-            cur = mysql.connection.cursor()
-            cur.execute("INSERT INTO churchinfo (memberid, baptizmdate, baptizedwhere, dateofmembership) VALUES (%s, %s, %s, %s)", (userid, bap_date, bap_where, mem_date))
-            mysql.connection.commit()
-            cur.close()
-            return 'Form submitted successfully!'
+                try:
+                    cur = mysql.connection.cursor()
+                    cur.execute("INSERT INTO memberinfo (title, firstname, middlename, lastname, sex, birthdate, subcity, district, homeno, neighborhood, Homephone, personalphone, email, handicap, handicaptype) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (title, f_name, m_name, l_name, sex, dob, subcity, district, house_no, other_name, homephone, phone, email, handicap, description))
+                    mysql.connection.commit()
+                    cur.execute("SELECT id FROM memberinfo WHERE firstname = %s AND middlename = %s AND lastname = %s ORDER BY id DESC", (f_name, m_name, l_name))
+                    userid = cur.fetchall()
+                    userid = userid[0][0]
+                    cur.close()
+                    cur = mysql.connection.cursor()
+                    cur.execute("INSERT INTO churchinfo (memberid, baptizmdate, baptizedwhere, dateofmembership) VALUES (%s, %s, %s, %s)", (userid, bap_date, bap_where, mem_date))
+                    mysql.connection.commit()
+                    # Change file name
+                    if 'profile' in request.files and profile.filename != '':
+                        new_filename = f'{userid}.jpg'
+                        profile.save(os.path.join(app.config['UPLOAD_FOLDER'], new_filename))
+                        cur.execute("INSERT INTO files (memberid, picture) VALUES (%s, %s)", (userid, new_filename))
+                        mysql.connection.commit()
+                        cur.close()
+                except Exception as e:
+                    return f"An error occurred: {e}"
+
+                return 'Form submitted successfully!'
     else:
         return redirect(url_for("login"))
     return render_template('addmembernew.html')
-# Add new children
-@app.route("/newchild", methods=["GET", "POST"])
-def newchild():
-    return "newchild"
 
 # Members list
 @app.route('/members')
@@ -164,6 +192,12 @@ def members():
         return render_template('members_list.html', members = members, today = today)
     else:
         return redirect(url_for("login"))
+
+# Add new children
+@app.route("/newchild", methods=["GET", "POST"])
+def newchild():
+    return "newchild"
+
 
 # Children list
 @app.route("/children")
